@@ -2,12 +2,6 @@ cmake_minimum_required(VERSION 3.0)
 
 project(OpenRGB_cppSDK)
 
-include_directories(
-	include
-	shared/CppUtils-Essential
-	shared/CppUtils-Network
-)
-
 file(GLOB SOURCE_FILES
 	"src/*.hpp" "src/*.cpp"
 	"shared/CppUtils-Essential/*.hpp" "shared/CppUtils-Essential/*.cpp"
@@ -21,6 +15,13 @@ else()
 endif()
 
 add_library(orgbsdk STATIC ${SOURCE_FILES})
+target_include_directories(orgbsdk
+	PUBLIC
+		include
+	PRIVATE
+		shared/CppUtils-Essential
+		shared/CppUtils-Network
+)
 
 add_subdirectory(tools/orgbcli EXCLUDE_FROM_ALL)
 
